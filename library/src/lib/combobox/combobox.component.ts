@@ -98,6 +98,12 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
     @Input()
     fillOnSelect: boolean = true;
 
+    /** Defines if combobox should behave same as dropdown. When it's enabled writing inside text input won't
+     * trigger onChange function, until it matches one of displayed dropdown values. Also communicating with combobox
+     * can be achieved only by objects with same type as dropdownValue */
+    @Input()
+    dropdownMode: boolean = false;
+
     /** Display function. Accepts an object of the same type as the
      * items passed to dropdownValues as argument, and outputs a string.
      * An arrow function can be used to access the *this* keyword in the calling component.
@@ -107,7 +113,7 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
 
     /** Event emitted when an item is clicked. Use *$event* to retrieve it. */
     @Output()
-    itemClicked: EventEmitter<ComboboxItem> = new EventEmitter<ComboboxItem>();
+    readonly itemClicked: EventEmitter<ComboboxItem> = new EventEmitter<ComboboxItem>();
 
     /** @hidden */
     @ViewChildren(MenuItemDirective)
@@ -138,14 +144,14 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
     constructor(private menuKeyboardService: MenuKeyboardService) {}
 
     /** @hidden */
-    ngOnInit() {
+    ngOnInit(): void {
         if (this.dropdownValues) {
             this.displayedValues = this.dropdownValues;
         }
     }
 
     /** @hidden */
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         if (this.dropdownValues && (changes.dropdownValues || changes.searchTerm)) {
             if (this.inputText) {
                 this.displayedValues = this.filterFn(this.dropdownValues, this.inputText);
@@ -182,7 +188,7 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
     }
 
     /** @hidden */
-    onInputKeyupHandler() {
+    onInputKeyupHandler(): void {
         if (this.inputText && this.inputText.length) {
             this.isOpen = true;
         }
@@ -203,20 +209,28 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
     }
 
     /** Get the input text of the input. */
-    get inputText() {
+    get inputText(): string {
         return this.inputTextValue;
     }
 
     /** Set the input text of the input. */
     set inputText(value) {
         this.inputTextValue = value;
-        this.onChange(value);
+        if (this.dropdownMode) {
+            this.onChange(this.getOptionObjectByDisplayedValue(value));
+        } else {
+            this.onChange(value);
+        }
         this.onTouched();
     }
 
     /** @hidden */
-    writeValue(value: any) {
-        this.inputTextValue = value;
+    writeValue(value: any): void {
+        if (this.dropdownMode) {
+            this.inputTextValue = this.displayFn(value);
+        } else {
+            this.inputTextValue = value;
+        }
     }
 
     /** @hidden */
@@ -255,6 +269,10 @@ export class ComboboxComponent implements ControlValueAccessor, OnInit, OnChange
             this.inputText = this.displayFn(term);
             this.handleSearchTermChange();
         }
+    }
+
+    private getOptionObjectByDisplayedValue(displayValue: string): any {
+        return this.dropdownValues.find(value => this.displayFn(value) === displayValue);
     }
 
 }
