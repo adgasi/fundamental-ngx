@@ -30,8 +30,8 @@ describe('ComboboxComponent', () => {
         fixture = TestBed.createComponent(ComboboxComponent);
         component = fixture.componentInstance;
         component.dropdownValues = [
-            'Apple',
-            'Banana'
+            {value: 'value', displayedValue: 'displayedValue'},
+            {value: 'value2', displayedValue: 'displayedValue2'},
         ];
         component.searchFunction = () => {};
         fixture.detectChanges();
@@ -110,10 +110,48 @@ describe('ComboboxComponent', () => {
         expect(component.onTouched).toHaveBeenCalled();
     });
 
+    it('should write value not on dropdown mode', () => {
+        component.writeValue('someValue');
+        expect(component.inputText).toBe('someValue');
+    });
+
     it('should registerOnChange and registerOnTouched', () => {
         component.registerOnChange('function');
         component.registerOnTouched('function');
         expect(component.onChange).toBe('function');
         expect(component.onTouched).toBe('function');
+    });
+
+    it('should handle input entry on dropdown mode', () => {
+        spyOn(component, 'onChange');
+        component.dropdownMode = true;
+        component.displayFn = (item: any): string => {
+            return item.displayedValue;
+        };
+        component.inputText = 'displayedValue2';
+        expect(component.onChange).toHaveBeenCalledWith({value: 'value2', displayedValue: 'displayedValue2'});
+    });
+
+    it('should handle wrong input entry on dropdown mode', () => {
+        spyOn(component, 'onChange');
+        component.dropdownMode = true;
+        component.displayFn = (item: any): string => {
+            if (item) {
+                return item.displayedValue;
+            } else {
+                return '';
+            }
+        };
+        component.inputText = 'otherDisplayedValue';
+        expect(component.onChange).toHaveBeenCalledWith(undefined);
+    });
+
+    it('should handle write value from outside on dropdown mode', () => {
+        component.dropdownMode = true;
+        component.displayFn = (item: any): string => {
+            return item.displayedValue;
+        };
+        component.writeValue({value: 'value2', displayedValue: 'displayedValue2'});
+        expect(component.inputTextValue).toBe('displayedValue2');
     });
 });
