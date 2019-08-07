@@ -73,6 +73,15 @@
 
 <separator></separator>
 
+<h2>Input Group Component Within Angular Reactive Form</h2>
+<description>It is possible to use the input-group component within an Angular Reactive Form.</description>
+<component-example [name]="'ex9'">
+   <fd-input-group-only-form-example></fd-input-group-only-form-example>
+</component-example>
+<code-example [exampleFiles]="formInput2"></code-example>
+
+<separator></separator>
+
 <playground [schema]="schema" [schemaInitialValues]="data" (onFormChanges)="onSchemaValues($event)">
 
     <fd-input-group [addOnText]="data.properties.addOnText" [placeholder]="data.properties.placeholder"

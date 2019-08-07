@@ -1,0 +1,6 @@
+<form [formGroup]="customForm">
+    <fd-input-group formControlName="input"></fd-input-group>
+</form>
+<br />
+
+Input Entered: {{ customForm.controls.input.value }}

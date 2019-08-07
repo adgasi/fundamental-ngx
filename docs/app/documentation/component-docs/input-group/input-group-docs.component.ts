@@ -10,6 +10,8 @@ import * as inputGroupTextSrc from '!raw-loader!./examples/input-group-text-exam
 import * as inputGroupTextCompactSrc from '!raw-loader!./examples/input-group-text-compact-example.component.html';
 import * as formInputTsSrc from '!raw-loader!./examples/input-group-form-example.component.ts'
 import * as formInputHtmlSrc from '!raw-loader!./examples/input-group-form-example.component.html'
+import * as formInput2TsSrc from '!raw-loader!./examples/input-group-only-form-example.component.ts'
+import * as formInput2HtmlSrc from '!raw-loader!./examples/input-group-only-form-example.component.html'
 import { ExampleFile } from '../../core-helpers/code-example/example-file';
 
 @Component({
@@ -737,6 +739,17 @@ export class InputGroupDocsComponent {
         {
             language: 'typescript',
             code: formInputTsSrc
+        }
+    ];
+
+    formInput2: ExampleFile[] = [
+        {
+            language: 'html',
+            code: formInput2HtmlSrc
+        },
+        {
+            language: 'typescript',
+            code: formInput2TsSrc
         }
     ];
 

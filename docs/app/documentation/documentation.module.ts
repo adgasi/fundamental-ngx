@@ -374,7 +374,7 @@ import { ComboboxDynamicExampleComponent } from './component-docs/combobox/examp
 import { ComboboxTemplateExampleComponent } from './component-docs/combobox/examples/combobox-template-example.component';
 import { CalendarProgrammaticallyChangeExampleComponent } from './component-docs/calendar/examples/calendar-programmatically-change-example.component';
 import { SelectViewValueExampleComponent } from './component-docs/select/examples/select-view-value-example/select-view-value-example.component';
-
+import { InputGroupOnlyFormExampleComponent } from './component-docs/input-group/examples/input-group-only-form-example.component';
 
 @NgModule({
     declarations: [
@@ -680,7 +680,8 @@ import { SelectViewValueExampleComponent } from './component-docs/select/example
         SelectCustomTriggerComponent,
         SelectAddingExampleComponent,
         SelectFormsComponent,
-        SelectViewValueExampleComponent
+        SelectViewValueExampleComponent,
+        InputGroupOnlyFormExampleComponent
     ],
     entryComponents: [ModalContentComponent, ModalInModalComponent, ModalInModalSecondComponent, AlertContentComponent],
     imports: [
