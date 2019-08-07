@@ -197,7 +197,7 @@ import {
     Time12ExampleComponent,
     TimeDisabledExampleComponent,
     TimeNoSecondsExampleComponent,
-    TimeNoSpinnersExampleComponent
+    TimeNoSpinnersExampleComponent, TimeOnlyHoursExampleComponent
 } from './component-docs/time/examples/time-examples.component';
 import {
     TimePickerExampleComponent,
@@ -205,7 +205,7 @@ import {
     TimePickerDisabledExampleComponent,
     TimePickerNoSecondsExampleComponent,
     TimePickerCompactExampleComponent,
-    TimePickerAllowNullExampleComponent
+    TimePickerAllowNullExampleComponent, TimePickerOnlyHoursExampleComponent
 } from './component-docs/time-picker/examples/time-picker-examples.component';
 import { TimePickerFormExampleComponent } from './component-docs/time-picker/examples/time-picker-form-example.component';
 import { ToggleDocsComponent } from './component-docs/toggle/toggle-docs.component';
@@ -583,6 +583,7 @@ import { InputGroupNumberFormExampleComponent } from './component-docs/input-gro
         Time12ExampleComponent,
         TimeDisabledExampleComponent,
         TimeNoSecondsExampleComponent,
+        TimeOnlyHoursExampleComponent,
         TimeNoSpinnersExampleComponent,
         TimeI18nExampleComponent,
         TimeFormExampleComponent,
@@ -590,6 +591,7 @@ import { InputGroupNumberFormExampleComponent } from './component-docs/input-gro
         TimePicker12ExampleComponent,
         TimePickerDisabledExampleComponent,
         TimePickerNoSecondsExampleComponent,
+        TimePickerOnlyHoursExampleComponent,
         TimePickerCompactExampleComponent,
         TimePickerOtherDelimiterExampleComponent,
         TimePickerAllowNullExampleComponent,
