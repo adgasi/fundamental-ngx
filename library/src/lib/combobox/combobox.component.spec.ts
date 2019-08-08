@@ -30,10 +30,11 @@ describe('ComboboxComponent', () => {
         fixture = TestBed.createComponent(ComboboxComponent);
         component = fixture.componentInstance;
         component.dropdownValues = [
-            {value: 'value', displayedValue: 'displayedValue'},
-            {value: 'value2', displayedValue: 'displayedValue2'},
+            { value: 'value', displayedValue: 'displayedValue' },
+            { value: 'value2', displayedValue: 'displayedValue2' }
         ];
-        component.searchFunction = () => {};
+        component.searchFunction = () => {
+        };
         fixture.detectChanges();
     });
 
@@ -45,7 +46,8 @@ describe('ComboboxComponent', () => {
         spyOn(component, 'searchFunction');
         const event = {
             code: 'Enter',
-            preventDefault: () => {}
+            preventDefault: () => {
+            }
         };
         component.onInputKeydownHandler(event);
         expect(component.searchFunction).toHaveBeenCalled();
@@ -58,16 +60,16 @@ describe('ComboboxComponent', () => {
     });
 
     it('should fire selected event onMenuKeydownHandler, arrow down', () => {
-        component.inputText = 'test';
+        component.displayFn = (item: any): string => {
+            return item.displayedValue;
+        };
         const event: any = {
             code: 'Enter',
             preventDefault: () => {}
         };
-        const term = 'test';
-        component.dropdownValues = [term];
-        spyOn(component.itemClicked, 'emit');
+        spyOn(component, 'onChange');
         component.onMenuKeydownHandler(event, 0);
-        expect(component.itemClicked.emit).toHaveBeenCalled();
+        expect(component.onChange).toHaveBeenCalledWith(component.dropdownValues[0].displayedValue);
         spyOn(event, 'preventDefault');
         spyOn(component.menuItems.toArray()[1], 'focus');
         event.code = 'ArrowDown';
@@ -92,7 +94,8 @@ describe('ComboboxComponent', () => {
     it('should handle onMenuKeydownHandler, arrow up on the first item', () => {
         const event: any = {
             code: 'ArrowUp',
-            preventDefault: () => {}
+            preventDefault: () => {
+            }
         };
         spyOn(event, 'preventDefault');
         spyOn(component.searchInputElement.nativeElement, 'focus');
@@ -129,7 +132,7 @@ describe('ComboboxComponent', () => {
             return item.displayedValue;
         };
         component.inputText = 'displayedValue2';
-        expect(component.onChange).toHaveBeenCalledWith({value: 'value2', displayedValue: 'displayedValue2'});
+        expect(component.onChange).toHaveBeenCalledWith({ value: 'value2', displayedValue: 'displayedValue2' });
     });
 
     it('should handle wrong input entry on dropdown mode', () => {
@@ -151,7 +154,7 @@ describe('ComboboxComponent', () => {
         component.displayFn = (item: any): string => {
             return item.displayedValue;
         };
-        component.writeValue({value: 'value2', displayedValue: 'displayedValue2'});
+        component.writeValue({ value: 'value2', displayedValue: 'displayedValue2' });
         expect(component.inputTextValue).toBe('displayedValue2');
     });
 });
