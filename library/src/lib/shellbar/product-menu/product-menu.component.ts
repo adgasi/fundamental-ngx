@@ -1,4 +1,5 @@
 import { Component, HostListener, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { ShellbarMenuItem } from '../model/shellbar-menu-item';
 
 /**
  * The component that represents a product menu.
@@ -25,20 +26,20 @@ export class ProductMenuComponent implements OnInit {
 
     /** The items in the product menu. */
     @Input()
-    items: any[];
+    items: ShellbarMenuItem[];
 
     /** @hidden */
     productMenuCollapsed: boolean = false;
 
     /** @hidden */
     @HostListener('window:resize', [])
-    onResize() {
+    onResize(): void {
         const mq = window.matchMedia('(max-width: 601px)');
         mq.matches ? this.productMenuCollapsed = true : this.productMenuCollapsed = false;
     }
 
     /** @hidden */
-    ngOnInit() {
+    ngOnInit(): void {
         this.onResize();
     }
 
